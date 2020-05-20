@@ -28,7 +28,7 @@ RUN set -ex; \
     git clone --branch v0.9.5 https://github.com/meetecho/janus-gateway.git /build/janus-gateway; \
     git clone --branch v2.3.0 https://github.com/cisco/libsrtp.git /build/libsrtp; \
     git clone --branch 0.1.16 https://gitlab.freedesktop.org/libnice/libnice.git /build/libnice; \
-    git clone https://github.com/sctplab/usrsctp /build/usrsctp; \
+    git clone https://github.com/sctplab/usrsctp /build/usrsctp;
 
 RUN set -ex; \
     \
