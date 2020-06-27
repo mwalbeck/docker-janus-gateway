@@ -13,6 +13,7 @@ steps:
       - apk add --no-cache grep
       - VER=$(grep "ENV $${APP}_VERSION" $${DIR:-}Dockerfile)
       - VER=$${VER##* }
+      - VER=$${VER#v}
       - TAGS="$${CUSTOM_TAGS:-}"
       - TAGS="$TAGS$VER,"
       - VER=$${VER%.*}
