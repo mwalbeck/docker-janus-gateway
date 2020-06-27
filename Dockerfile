@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:buster-slim@sha256:7c459309b9a5ec1683ef3b137f39ce5888f5ad0384e488ad73c94e0243bc77d4
 
 # renovate: datasource=github-tags depName=meetecho/janus-gateway versioning=semver
 ENV JANUS_VERSION v0.9.5
