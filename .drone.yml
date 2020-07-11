@@ -35,15 +35,15 @@ steps:
   - name: notify
     image: plugins/matrix
     settings:
-        homeserver: https://matrix.mwalbeck.org
-        roomid:
+      homeserver: https://matrix.mwalbeck.org
+      roomid:
         from_secret: matrix_roomid
-        username:
+      username:
         from_secret: matrix_username
-        password:
+      password:
         from_secret: matrix_password
     when:
-        status:
+      status:
         - success
         - failure
 
