@@ -1,5 +1,6 @@
 ---
 kind: pipeline
+type: docker
 name: janus-gateway_build
 
 steps:
@@ -26,11 +27,10 @@ steps:
     settings:
       dockerfile: Dockerfile
       username:
-        from_secret: docker_username
+        from_secret: dockerhub_username
       password:
-        from_secret: docker_password
-      repo: docker.internal.walbeck.it/walbeck-it/janus-gateway
-      registry: docker.internal.walbeck.it
+        from_secret: dockerhub_password
+      repo: mwalbeck/janus-gateway
 
   - name: notify
     image: plugins/matrix
@@ -55,6 +55,7 @@ trigger:
 
 ---
 kind: pipeline
+type: docker
 name: janus-gateway_test
 
 steps:
@@ -62,8 +63,7 @@ steps:
     image: plugins/docker
     settings:
       dockerfile: Dockerfile
-      repo: docker.internal.walbeck.it/walbeck-it/janus-gateway
-      registry: docker.internal.walbeck.it
+      repo: mwalbeck/janus-gateway
       dry_run: true
 
 trigger:
