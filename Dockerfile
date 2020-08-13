@@ -8,7 +8,11 @@ ENV LIBSRTP_VERSION v2.3.0
 ENV LIBNICE_VERSION 0.1.17
 ENV USRSCTP_VERSION master
 
+
 RUN set -ex; \
+    \
+    groupadd --system --gid 602 janus; \
+    useradd --no-log-init --system --gid janus --no-create-home --uid 602 janus; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -58,6 +62,9 @@ RUN set -ex; \
     make; \
     make install; \
     make configs; \
-    rm -rf /build;
+    rm -rf /build; \
+    chown -R janus:janus /opt/janus;
+
+USER janus:janus
 
 CMD ["/opt/janus/bin/janus"]
