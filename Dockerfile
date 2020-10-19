@@ -52,7 +52,7 @@ RUN set -ex; \
     \
     cd /build/usrsctp; \
     ./bootstrap; \
-    ./configure --prefix=/usr; \
+    ./configure --prefix=/usr --disable-programs --disable-inet --disable-inet6; \
     make; \
     make install; \
     \
