@@ -35,7 +35,10 @@ RUN set -ex; \
         git \
         make \
         gtk-doc-tools \
+        ninja-build \
+        python3-pip \
     ; \
+    pip3 install meson; \
     mkdir /build; \
     git clone --branch $JANUS_VERSION https://github.com/meetecho/janus-gateway.git /build/janus-gateway; \
     git clone --branch $LIBSRTP_VERSION https://github.com/cisco/libsrtp.git /build/libsrtp; \
@@ -43,8 +46,9 @@ RUN set -ex; \
     git clone --branch $USRSCTP_VERSION https://github.com/sctplab/usrsctp /build/usrsctp; \
     \
     cd /build/libnice; \
-    ./autogen.sh --prefix=/usr; \
-    make && make install; \
+    meson --prefix=/usr build; \
+    ninja -C build; \
+    ninja -C build install; \
     \
     cd /build/libsrtp; \
     ./configure --prefix=/usr --enable-openssl; \
