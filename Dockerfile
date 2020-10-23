@@ -6,6 +6,8 @@ ENV JANUS_VERSION v0.10.5
 ENV LIBSRTP_VERSION v2.3.0
 # renovate: datasource=git-tags depName=https://gitlab.freedesktop.org/libnice/libnice versioning=semver
 ENV LIBNICE_VERSION 0.1.18
+# renovate: datasource=git-tags depName=https://libwebsockets.org/repo/libwebsockets versioning=semver
+ENV LIBWEBSOCKETS_VERSION v4.1.3
 ENV USRSCTP_VERSION master
 
 
@@ -27,7 +29,6 @@ RUN set -ex; \
         libcurl4-openssl-dev \
         liblua5.3-dev \
 	    libconfig-dev \
-        libwebsockets-dev \
         pkg-config \
         gengetopt \
         libtool \
@@ -37,6 +38,8 @@ RUN set -ex; \
         gtk-doc-tools \
         ninja-build \
         python3-pip \
+        cmake \
+        build-essential \
     ; \
     pip3 install meson; \
     mkdir /build; \
@@ -44,6 +47,7 @@ RUN set -ex; \
     git clone --branch $LIBSRTP_VERSION https://github.com/cisco/libsrtp.git /build/libsrtp; \
     git clone --branch $LIBNICE_VERSION https://gitlab.freedesktop.org/libnice/libnice.git /build/libnice; \
     git clone --branch $USRSCTP_VERSION https://github.com/sctplab/usrsctp /build/usrsctp; \
+    git clone --branch $LIBWEBSOCKETS_VERSION https://libwebsockets.org/repo/libwebsockets /build/libwebsockets; \
     \
     cd /build/libnice; \
     meson --prefix=/usr build; \
@@ -57,6 +61,13 @@ RUN set -ex; \
     cd /build/usrsctp; \
     ./bootstrap; \
     ./configure --prefix=/usr --disable-programs --disable-inet --disable-inet6; \
+    make; \
+    make install; \
+    \
+    cd /build/libwebsockets; \
+    mkdir build; \
+    cd build; \
+    cmake -DLWS_MAX_SMP=1 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" ..; \
     make; \
     make install; \
     \
