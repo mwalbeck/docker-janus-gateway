@@ -1,26 +1,33 @@
 ---
 kind: pipeline
 type: docker
+name: janus-gateway_test
+
+steps:
+  - name: build test
+    image: plugins/docker
+    settings:
+      dockerfile: Dockerfile
+      repo: mwalbeck/janus-gateway
+      dry_run: true
+
+trigger:
+  event:
+    - pull_request
+
+---
+kind: pipeline
+type: docker
 name: janus-gateway_build
 
 steps:
   - name: determine tags
-    image: bash
+    image: mwalbeck/determine-docker-tags
     environment:
-      APP: "JANUS"
-      DIR: ""
-      CUSTOM_TAGS: "latest,"
-    commands:
-      - apk add --no-cache grep
-      - VER=$(grep "ENV $${APP}_VERSION" $${DIR:-}Dockerfile)
-      - VER=$${VER##* }
-      - VER=$${VER#v}
-      - TAGS="$${CUSTOM_TAGS:-}"
-      - TAGS="$TAGS$VER,"
-      - VER=$${VER%.*}
-      - TAGS="$TAGS$VER"
-      - echo -n $TAGS > .tags
-      - echo $TAGS
+      VERSION_TYPE: "docker_env"
+      APP_NAME: "JANUS"
+      DOCKERFILE_PATH: "Dockerfile"
+      CUSTOM_TAGS: "latest"
 
   - name: build and publish
     image: plugins/docker
@@ -52,21 +59,3 @@ trigger:
     - master
   event:
     - push
-
----
-kind: pipeline
-type: docker
-name: janus-gateway_test
-
-steps:
-  - name: build test
-    image: plugins/docker
-    settings:
-      dockerfile: Dockerfile
-      repo: mwalbeck/janus-gateway
-      dry_run: true
-
-trigger:
-  event:
-    - pull_request
-
