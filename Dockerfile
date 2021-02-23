@@ -19,6 +19,22 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         ca-certificates \
+        libconfig9 \
+        libglib2.0-0 \
+        libjansson4 \
+        libssl1.1 \
+        libcurl4 \
+        libopus0 \
+        libogg0 \
+        libmicrohttpd12 \
+        libsofia-sip-ua0 \
+    ; \
+    rm -rf /var/lib/apt/lists/*;
+
+RUN set -ex; \
+    \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
         libmicrohttpd-dev \
         libjansson-dev \
         libssl-dev \
@@ -77,8 +93,38 @@ RUN set -ex; \
     make; \
     make install; \
     make configs; \
+    cd /; \
     rm -rf /build; \
-    chown -R janus:janus /opt/janus;
+    chown -R janus:janus /opt/janus; \
+    \
+    pip3 uninstall -y meson; \
+    \
+    apt-get purge -y --autoremove \
+        libmicrohttpd-dev \
+        libjansson-dev \
+        libssl-dev \
+        libsofia-sip-ua-dev \
+        libglib2.0-dev \
+	    libopus-dev \
+        libogg-dev \
+        libcurl4-openssl-dev \
+        liblua5.3-dev \
+	    libconfig-dev \
+        pkg-config \
+        gengetopt \
+        libtool \
+        automake \
+        git \
+        make \
+        gtk-doc-tools \
+        ninja-build \
+        python3-pip \
+        cmake \
+        build-essential \
+    ; \
+    rm -rf /var/lib/apt/lists/*;
+
+EXPOSE 8088 8188
 
 USER janus:janus
 
