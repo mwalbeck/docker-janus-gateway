@@ -28,12 +28,7 @@ RUN set -ex; \
         libogg0 \
         libmicrohttpd12 \
         libsofia-sip-ua0 \
-    ; \
-    rm -rf /var/lib/apt/lists/*;
-
-RUN set -ex; \
-    \
-    apt-get update; \
+    ;\
     apt-get install -y --no-install-recommends \
         libmicrohttpd-dev \
         libjansson-dev \
@@ -98,6 +93,7 @@ RUN set -ex; \
     chown -R janus:janus /opt/janus; \
     \
     pip3 uninstall -y meson; \
+    rm -rf /root/.cache/pip; \
     \
     apt-get purge -y --autoremove \
         libmicrohttpd-dev \
@@ -127,5 +123,7 @@ RUN set -ex; \
 EXPOSE 8088 8188
 
 USER janus:janus
+
+VOLUME [ "/opt/janus" ]
 
 CMD ["/opt/janus/bin/janus"]
