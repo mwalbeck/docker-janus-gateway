@@ -35,11 +35,11 @@ RUN set -ex; \
         libssl-dev \
         libsofia-sip-ua-dev \
         libglib2.0-dev \
-	    libopus-dev \
+        libopus-dev \
         libogg-dev \
         libcurl4-openssl-dev \
         liblua5.3-dev \
-	    libconfig-dev \
+        libconfig-dev \
         pkg-config \
         gengetopt \
         libtool \
@@ -101,11 +101,11 @@ RUN set -ex; \
         libssl-dev \
         libsofia-sip-ua-dev \
         libglib2.0-dev \
-	    libopus-dev \
+        libopus-dev \
         libogg-dev \
         libcurl4-openssl-dev \
         liblua5.3-dev \
-	    libconfig-dev \
+        libconfig-dev \
         pkg-config \
         gengetopt \
         libtool \
