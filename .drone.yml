@@ -1,7 +1,26 @@
 ---
 kind: pipeline
 type: docker
-name: janus-gateway_test
+name: lint
+
+steps:
+  - name: Lint Dockerfile
+    image: hadolint/hadolint
+    commands:
+      - hadolint Dockerfile
+
+trigger:
+  event:
+    - pull_request
+    - push
+  ref:
+    exclude:
+      - refs/heads/renovate/*
+
+---
+kind: pipeline
+type: docker
+name: test
 
 steps:
   - name: build test
@@ -15,10 +34,13 @@ trigger:
   event:
     - pull_request
 
+depends_on:
+  - lint
+
 ---
 kind: pipeline
 type: docker
-name: janus-gateway_build
+name: build and publish
 
 steps:
   - name: determine tags
@@ -59,3 +81,6 @@ trigger:
     - master
   event:
     - push
+
+depends_on:
+  - lint
