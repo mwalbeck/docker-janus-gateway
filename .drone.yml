@@ -5,8 +5,9 @@ name: lint
 
 steps:
   - name: Lint Dockerfile
-    image: hadolint/hadolint
+    image: hadolint/hadolint:latest-debian
     commands:
+      - hadolint --version
       - hadolint Dockerfile
 
 trigger:
