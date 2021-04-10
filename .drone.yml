@@ -6,6 +6,7 @@ name: lint
 steps:
   - name: Lint Dockerfile
     image: hadolint/hadolint:latest-debian
+    pull: if-not-exists
     commands:
       - hadolint --version
       - hadolint Dockerfile
@@ -26,6 +27,7 @@ name: test
 steps:
   - name: build test
     image: plugins/docker
+    pull: if-not-exists
     settings:
       dockerfile: Dockerfile
       repo: mwalbeck/janus-gateway
@@ -46,6 +48,7 @@ name: build and publish
 steps:
   - name: determine tags
     image: mwalbeck/determine-docker-tags
+    pull: if-not-exists
     environment:
       VERSION_TYPE: "docker_env"
       APP_NAME: "JANUS"
@@ -54,6 +57,7 @@ steps:
 
   - name: build and publish
     image: plugins/docker
+    pull: if-not-exists
     settings:
       dockerfile: Dockerfile
       username:
@@ -64,6 +68,7 @@ steps:
 
   - name: notify
     image: plugins/matrix
+    pull: if-not-exists
     settings:
       homeserver: https://matrix.mwalbeck.org
       roomid:
