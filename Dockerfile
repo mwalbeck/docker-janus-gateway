@@ -95,29 +95,29 @@ RUN set -ex; \
     pip3 uninstall -y meson; \
     rm -rf /root/.cache/pip; \
     \
-    # apt-get purge -y --autoremove \
-    #     libmicrohttpd-dev \
-    #     libjansson-dev \
-    #     libssl-dev \
-    #     libsofia-sip-ua-dev \
-    #     libglib2.0-dev \
-    #     libopus-dev \
-    #     libogg-dev \
-    #     libcurl4-openssl-dev \
-    #     liblua5.3-dev \
-    #     libconfig-dev \
-    #     pkg-config \
-    #     gengetopt \
-    #     libtool \
-    #     automake \
-    #     git \
-    #     make \
-    #     gtk-doc-tools \
-    #     ninja-build \
-    #     python3-pip \
-    #     cmake \
-    #     build-essential \
-    # ; \
+    apt-get purge -y --autoremove \
+        libmicrohttpd-dev \
+        libjansson-dev \
+        libssl-dev \
+        libsofia-sip-ua-dev \
+        libglib2.0-dev \
+        libopus-dev \
+        libogg-dev \
+        libcurl4-openssl-dev \
+        liblua5.3-dev \
+        libconfig-dev \
+        pkg-config \
+        gengetopt \
+        libtool \
+        automake \
+        git \
+        make \
+        gtk-doc-tools \
+        ninja-build \
+        python3-pip \
+        cmake \
+        build-essential \
+    ; \
     rm -rf /var/lib/apt/lists/*;
 
 EXPOSE 8088 8188
