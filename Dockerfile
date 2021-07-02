@@ -18,6 +18,7 @@ RUN set -ex; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
+        # Runtime dependencies
         ca-certificates \
         libconfig9 \
         libglib2.0-0 \
@@ -27,13 +28,10 @@ RUN set -ex; \
         libopus0 \
         libogg0 \
         libmicrohttpd12 \
-        libsofia-sip-ua0 \
-    ;\
-    apt-get install -y --no-install-recommends \
+        # Build dependencies
         libmicrohttpd-dev \
         libjansson-dev \
         libssl-dev \
-        libsofia-sip-ua-dev \
         libglib2.0-dev \
         libopus-dev \
         libogg-dev \
@@ -84,7 +82,8 @@ RUN set -ex; \
     \
     cd /build/janus-gateway; \
     sh autogen.sh; \
-    ./configure --prefix=/opt/janus; \
+    ./configure --prefix=/opt/janus --disable-plugin-voicemail --disable-plugin-nosip --disable-plugin-sip \
+        --disable-plugin-streaming --disable-plugin-recordplay --disable-unix-sockets; \
     make; \
     make install; \
     make configs; \
@@ -99,7 +98,6 @@ RUN set -ex; \
         libmicrohttpd-dev \
         libjansson-dev \
         libssl-dev \
-        libsofia-sip-ua-dev \
         libglib2.0-dev \
         libopus-dev \
         libogg-dev \
@@ -123,7 +121,5 @@ RUN set -ex; \
 EXPOSE 8088 8188
 
 USER janus:janus
-
-VOLUME [ "/opt/janus" ]
 
 CMD ["/opt/janus/bin/janus"]
