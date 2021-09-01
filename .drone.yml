@@ -30,6 +30,10 @@ steps:
     pull: if-not-exists
     settings:
       dockerfile: Dockerfile
+      username:
+        from_secret: dockerhub_username
+      password:
+        from_secret: dockerhub_password_ro
       repo: mwalbeck/janus-gateway
       dry_run: true
 
@@ -93,6 +97,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: afa48630b18afe8a3890f240dfc9e710e9a64ab9b5b71721fb6b51a1ee14f14c
+hmac: 54d22411c934ad1889097ca060ab2406803dd8144e63b3b2ff3e0dd9eeb3784d
 
 ...
