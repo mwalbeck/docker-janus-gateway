@@ -3,7 +3,7 @@ FROM debian:buster-slim@sha256:47e092810f101be84824f6d93885c18d20d53c8dda6b80839
 # renovate: datasource=github-tags depName=meetecho/janus-gateway versioning=semver
 ENV JANUS_VERSION v0.11.4
 # renovate: datasource=github-tags depName=cisco/libsrtp versioning=semver
-ENV LIBSRTP_VERSION v2.4.0
+ENV LIBSRTP_VERSION v2.4.1
 # renovate: datasource=git-tags depName=https://gitlab.freedesktop.org/libnice/libnice versioning=semver
 ENV LIBNICE_VERSION 0.1.18
 # renovate: datasource=git-tags depName=https://libwebsockets.org/repo/libwebsockets versioning=semver
