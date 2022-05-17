@@ -7,7 +7,7 @@ ENV LIBSRTP_VERSION v2.4.2
 # renovate: datasource=git-tags depName=https://gitlab.freedesktop.org/libnice/libnice versioning=semver
 ENV LIBNICE_VERSION 0.1.19
 # renovate: datasource=git-tags depName=https://libwebsockets.org/repo/libwebsockets versioning=semver
-ENV LIBWEBSOCKETS_VERSION v4.3.1
+ENV LIBWEBSOCKETS_VERSION v4.3.2
 ENV USRSCTP_VERSION master
 
 
