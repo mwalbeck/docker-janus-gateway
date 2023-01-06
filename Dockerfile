@@ -5,7 +5,7 @@ ENV JANUS_VERSION v1.1.1
 # renovate: datasource=github-tags depName=cisco/libsrtp versioning=semver
 ENV LIBSRTP_VERSION v2.4.2
 # renovate: datasource=git-tags depName=https://gitlab.freedesktop.org/libnice/libnice versioning=semver
-ENV LIBNICE_VERSION 0.1.19
+ENV LIBNICE_VERSION 0.1.20
 # renovate: datasource=git-tags depName=https://libwebsockets.org/repo/libwebsockets versioning=semver
 ENV LIBWEBSOCKETS_VERSION v4.3.2
 ENV USRSCTP_VERSION master
