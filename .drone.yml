@@ -70,22 +70,6 @@ steps:
         from_secret: dockerhub_password
       repo: mwalbeck/janus-gateway
 
-  - name: notify
-    image: plugins/matrix
-    pull: if-not-exists
-    settings:
-      homeserver: https://matrix.mwalbeck.org
-      roomid:
-        from_secret: matrix_roomid
-      username:
-        from_secret: matrix_username
-      password:
-        from_secret: matrix_password
-    when:
-      status:
-        - success
-        - failure
-
 trigger:
   branch:
     - master
@@ -97,6 +81,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 54d22411c934ad1889097ca060ab2406803dd8144e63b3b2ff3e0dd9eeb3784d
+hmac: 942d31e3087d1861b8ef606fa25d752480bbc9f084ab186985fc36f136104e2b
 
 ...
