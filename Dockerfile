@@ -56,7 +56,7 @@ RUN set -ex; \
     git clone --branch $LIBSRTP_VERSION https://github.com/cisco/libsrtp.git /build/libsrtp; \
     git clone --branch $LIBNICE_VERSION https://gitlab.freedesktop.org/libnice/libnice.git /build/libnice; \
     git clone --branch $USRSCTP_VERSION https://github.com/sctplab/usrsctp /build/usrsctp; \
-    git clone --branch $LIBWEBSOCKETS_VERSION https://libwebsockets.org/repo/libwebsockets /build/libwebsockets; \
+    git clone --branch $LIBWEBSOCKETS_VERSION https://git.walbeck.it/archive/libwebsockets /build/libwebsockets; \
     \
     cd /build/libnice; \
     meson --prefix=/usr build; \
