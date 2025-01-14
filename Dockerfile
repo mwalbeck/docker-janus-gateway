@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim@sha256:b0c91cc181796d34c53f7ea106fbcddaf87f3e601cc371af6a24a019a489c980
+FROM debian:bullseye-slim@sha256:6344a6747740d465bff88e833e43ef881a8c4dd51950dba5b30664c93f74cbef
 
 # renovate: datasource=github-tags depName=meetecho/janus-gateway versioning=semver
 ENV JANUS_VERSION v1.3.0
