@@ -1,0 +1,37 @@
+name: Test
+
+on: pull_request
+
+jobs:
+  lint:
+    if: github.ref != 'refs/heads/renovate/*'
+    runs-on: docker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: https://github.com/hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+  test:
+    runs-on: dind
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get docker tags
+        id: tags
+        shell: sh
+        env:
+          VERSION_TYPE: "docker_env"
+          APP_NAME: "JANUS"
+          DOCKERFILE_PATH: "Dockerfile"
+          CUSTOM_TAGS: "latest"
+          INCLUDE_SUFFIX: "no"
+          IMAGE_NAME: "mwalbeck/janus-gateway"
+        run: |
+          determine-docker-tags
+          dockerd &
+      - name: Set up Docker Buildx
+        uses: https://github.com/docker/setup-buildx-action@v3
+      - name: Test build
+        uses: https://github.com/docker/build-push-action@v6
+        with:
+          tags: ${{ steps.tags.outputs.tags }}
