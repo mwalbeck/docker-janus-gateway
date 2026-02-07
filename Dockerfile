@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim@sha256:f0dbd70ae23f6ffa17f8b816a1ba1a489f7e9b3c32328867f6b456dec869e031
+FROM debian:trixie-slim
 
 # renovate: datasource=github-tags depName=meetecho/janus-gateway versioning=semver
 ENV JANUS_VERSION=v1.3.3
@@ -20,10 +20,10 @@ RUN set -ex; \
     apt-get install -y --no-install-recommends \
         # Runtime dependencies
         ca-certificates \
-        libconfig9 \
+        libconfig11 \
         libglib2.0-0 \
         libjansson4 \
-        libssl1.1 \
+        libssl3 \
         libcurl4 \
         libopus0 \
         libogg0 \
@@ -46,11 +46,10 @@ RUN set -ex; \
         make \
         gtk-doc-tools \
         ninja-build \
-        python3-pip \
         cmake \
         build-essential \
+        python3-mesonpy \
     ; \
-    pip3 install meson; \
     mkdir /build; \
     git clone --branch $JANUS_VERSION https://github.com/meetecho/janus-gateway.git /build/janus-gateway; \
     git clone --branch $LIBSRTP_VERSION https://github.com/cisco/libsrtp.git /build/libsrtp; \
@@ -91,9 +90,6 @@ RUN set -ex; \
     rm -rf /build; \
     chown -R janus:janus /opt/janus; \
     \
-    pip3 uninstall -y meson; \
-    rm -rf /root/.cache/pip; \
-    \
     apt-get purge -y --autoremove \
         libmicrohttpd-dev \
         libjansson-dev \
@@ -112,9 +108,9 @@ RUN set -ex; \
         make \
         gtk-doc-tools \
         ninja-build \
-        python3-pip \
         cmake \
         build-essential \
+        python3-mesonpy \
     ; \
     rm -rf /var/lib/apt/lists/*;
 
