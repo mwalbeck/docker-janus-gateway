@@ -1,15 +1,8 @@
-FROM debian:trixie-slim
+FROM debian:trixie-slim@sha256:f6e2cfac5cf956ea044b4bd75e6397b4372ad88fe00908045e9a0d21712ae3ba
 
 # renovate: datasource=github-tags depName=meetecho/janus-gateway versioning=semver
 ENV JANUS_VERSION=v1.3.3
-# renovate: datasource=github-tags depName=cisco/libsrtp versioning=semver
-ENV LIBSRTP_VERSION=v2.7.0
-# renovate: datasource=git-tags depName=https://gitlab.freedesktop.org/libnice/libnice versioning=semver
-ENV LIBNICE_VERSION=0.1.23
-# renovate: datasource=git-tags depName=https://git.walbeck.it/archive/libwebsockets versioning=semver
-ENV LIBWEBSOCKETS_VERSION=v4.5.2
 ENV USRSCTP_VERSION=master
-
 
 RUN set -ex; \
     \
@@ -28,6 +21,9 @@ RUN set -ex; \
         libopus0 \
         libogg0 \
         libmicrohttpd12 \
+        libwebsockets19t64 \
+        libnice10 \
+        libsrtp2-1 \
         # Build dependencies
         libmicrohttpd-dev \
         libjansson-dev \
@@ -49,33 +45,17 @@ RUN set -ex; \
         cmake \
         build-essential \
         python3-mesonpy \
+        libwebsockets-dev \
+        libnice-dev \
+        libsrtp2-dev \
     ; \
     mkdir /build; \
     git clone --branch $JANUS_VERSION https://github.com/meetecho/janus-gateway.git /build/janus-gateway; \
-    git clone --branch $LIBSRTP_VERSION https://github.com/cisco/libsrtp.git /build/libsrtp; \
-    git clone --branch $LIBNICE_VERSION https://gitlab.freedesktop.org/libnice/libnice.git /build/libnice; \
     git clone --branch $USRSCTP_VERSION https://github.com/sctplab/usrsctp /build/usrsctp; \
-    git clone --branch $LIBWEBSOCKETS_VERSION https://git.walbeck.it/archive/libwebsockets /build/libwebsockets; \
-    \
-    cd /build/libnice; \
-    meson --prefix=/usr build; \
-    ninja -C build; \
-    ninja -C build install; \
-    \
-    cd /build/libsrtp; \
-    ./configure --prefix=/usr --enable-openssl; \
-    make shared_library && make install; \
     \
     cd /build/usrsctp; \
     ./bootstrap; \
     ./configure --prefix=/usr --disable-programs --disable-inet --disable-inet6; \
-    make; \
-    make install; \
-    \
-    cd /build/libwebsockets; \
-    mkdir build; \
-    cd build; \
-    cmake -DLWS_MAX_SMP=1 -DLWS_WITHOUT_EXTENSIONS=0 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" ..; \
     make; \
     make install; \
     \
@@ -111,6 +91,9 @@ RUN set -ex; \
         cmake \
         build-essential \
         python3-mesonpy \
+        libwebsockets-dev \
+        libnice-dev \
+        libsrtp2-dev \
     ; \
     rm -rf /var/lib/apt/lists/*;
 
