@@ -1,7 +1,7 @@
 FROM debian:trixie-20260406-slim@sha256:4ffb3a1511099754cddc70eb1b12e50ffdb67619aa0ab6c13fcd800a78ef7c7a
 
 # renovate: datasource=github-tags depName=meetecho/janus-gateway versioning=semver
-ENV JANUS_VERSION=v1.4.0
+ENV JANUS_VERSION=v1.4.1
 ENV USRSCTP_VERSION=master
 
 RUN set -ex; \
