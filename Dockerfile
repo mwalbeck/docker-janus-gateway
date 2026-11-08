@@ -99,6 +99,6 @@ RUN set -ex; \
 
 EXPOSE 8088 8188
 
-USER janus:janus
+USER 602:602
 
 CMD ["/opt/janus/bin/janus"]
